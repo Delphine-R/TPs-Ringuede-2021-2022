@@ -7,6 +7,8 @@ package guessmynumber_malki_ringuede;
 import java.util.Random;
 import java.util.Scanner;
 
+// modif test git
+
 /**
  * fait le 4 octobre 2021
  *
