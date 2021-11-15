@@ -41,17 +41,27 @@ public class Partie {
      
 
       for (int i = 0; i < 21; i++){
-
           ListeJoueurs[0].ajouterJeton(jeton1);
-
           ListeJoueurs[1].ajouterJeton(jeton2);
-
-       
-
       }
-
+    }
     
-
+    public void debuterPartie(){
+        
+        /*
+        
+        - montrer la grille
+        - possibilité de placer un desintegrateur ou non
+        - choix de col et de lig pour placer le jeton
+        - test de l'emplacement sinon : boucle
+        - verif si c'est trou noir ou desintegrateur
+        - verif gagnant
+        - verif fin de partie avec le nbJetonRestant
+        
+        */
+        
+        grille.afficherGrilleSurConsole();
+    
     }
 
    
