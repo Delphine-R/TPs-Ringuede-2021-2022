@@ -5,6 +5,7 @@ package sp4_console_ringuede;
  * @author delph
  */
 public class Joueur {
+    
     String Nom;
     String Couleur;
     Jeton [] ListeJetons;
@@ -19,16 +20,18 @@ public class Joueur {
         Couleur = uneCouleur;
     }
     
-    public boolean ajouterJeton(String unJeton) {
+    public void ajouterJeton(Jeton unJeton) {
+        int rang = 0;
         for (int i=0; i<ListeJetons.length; i++){
             if (ListeJetons[i]== null){
-                int rang = i;
+                rang = i;
                 break;
             }
         }
         ListeJetons[rang] = unJeton;
     }
     
+    /*
     public void obtenirDesintegrateur() {
         nombreDesintegrateurs ++;
     }
@@ -38,6 +41,5 @@ public class Joueur {
             nombreDesintegrateurs --;
         }
     }
-    
-        
-}
+    */
+        }
