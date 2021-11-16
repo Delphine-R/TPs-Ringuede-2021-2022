@@ -1,8 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
 package sp4_console_ringuede;
+
+import java.util.Scanner;
 
 /**
  *
@@ -10,11 +8,13 @@ package sp4_console_ringuede;
  */
 public class SP4_console_Ringuede {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        // TODO code application logic here
+        System.out.println("Bienvenue dans le Super Puissance 4\nEntrez le nom du Joueur 1: ");
+        Joueur(sc.nextString());
+        
+        
+        
+        
     }
     
 }
