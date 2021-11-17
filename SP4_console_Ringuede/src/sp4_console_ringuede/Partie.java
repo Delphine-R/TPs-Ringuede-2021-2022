@@ -12,6 +12,8 @@ public class Partie {//partie est la classe
     Joueur [] ListeJoueurs = new Joueur [2];// attribut ListeJoeur de type : tableau rempli de type Joueur
     Joueur joueurCourant;
     Grille grilleJeu;
+    int JC = 3; //JC est un entier qui permet de désigner quel joueur est le joueur courant.
+    // JC est égal à 3 début de partie, ensuite il va alterner entre 0 et 1 ce qui correspond au rang dans l'array ListeJoueurs.
 
     public void attribuerCouleursAuxJoueurs(){
         ListeJoueurs[0].affecterCouleur("Rouge");
@@ -62,17 +64,54 @@ public class Partie {//partie est la classe
         
         */
         
+        Scanner sc = new Scanner(System.in);
         boolean partieFinie = false;
         
-        joueurCourant joueur = new joueurCourant();
-        joueur = joueur.listeJoueur[0];
+        Joueur joueurCourant = new Joueur("joueur");
+        Joueur adversaireCourant = new Joueur("adversaire");
+        Jeton jetonCourant = new Jeton();
+        
+        if(JC == 0) {
+            joueurCourant = ListeJoueurs[1];   
+            adversaireCourant = ListeJoueurs[0];
+            jetonCourant.Couleur = joueurCourant.Couleur;
+        }
+        else{
+            joueurCourant = ListeJoueurs[0];
+            adversaireCourant = ListeJoueurs[1];
+            jetonCourant.Couleur = joueurCourant.Couleur;
+        }
         
         if (grilleJeu.etreRemplie() == true){
             partieFinie = true;
         }
-        if (grilleJeu.etreGagnantePourJoueur(listeJoueur) == true){
+        if (grilleJeu.etreGagnantePourJoueur(adversaireCourant) == true){
             partieFinie = true;
         }
+        
+        if (partieFinie!= true){
+            
+            grilleJeu.afficherGrilleSurConsole();
+            
+            System.out.println("C'est à votre tour de placer votre jeton\nEntrez un numéro de colone");
+            int colonne = sc.nextInt();
+            
+            boolean placementDispo = grilleJeu.colonneRemplie(colonne);// test si l'emplacement est dispo
+            
+            while (placementDispo == false) { // à refaire jusqu'à ce que le choix de colonne soit valide
+               System.out.println("Erreur : la colonne " + colonne + " est remplie.\nEntrez un autre numéro de colone"); 
+               colonne = sc.nextInt();
+               placementDispo = grilleJeu.colonneRemplie(colonne);
+            }
+        
+        grilleJeu.ajouterJetonDansColonne(jetonCourant, colonne);
+            
+            
+        }
+        
+        
+        
+        
             
         
         
