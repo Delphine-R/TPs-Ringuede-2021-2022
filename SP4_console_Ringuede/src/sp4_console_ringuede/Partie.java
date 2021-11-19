@@ -15,9 +15,29 @@ public class Partie {//partie est la classe
     int JC = 3; //JC est un entier qui permet de désigner quel joueur est le joueur courant.
     // JC est égal à 3 début de partie, ensuite il va alterner entre 0 et 1 ce qui correspond au rang dans l'array ListeJoueurs.
 
+    public Partie (Joueur joueur1 , Joueur joueur2){
+        Joueur j1 = joueur1;
+        Joueur j2 = joueur2;
+
+        ListeJoueurs[0] = j1;
+        ListeJoueurs[1] = j2;
+
+}
     public void attribuerCouleursAuxJoueurs(){
-        ListeJoueurs[0].affecterCouleur("Rouge");
-        ListeJoueurs[1].affecterCouleur("Jaune");
+
+        double nb = Math.random();
+        int nb1;
+        int nb2;
+
+        if (nb >= 0.5){
+            nb1 = 1;
+        }else{
+            nb1 = 0;
+        }
+        
+        nb2 = 1-nb1;
+        ListeJoueurs[nb1].affecterCouleur("Rouge");
+        ListeJoueurs[nb2].affecterCouleur("Jaune");
     }
 
     public void initialiserPartie(){
@@ -79,7 +99,7 @@ public class Partie {//partie est la classe
                placementDispo = grilleJeu.colonneRemplie(colonne);
             }
             
-        // le boolean "doitEtreTure" renvoyé doit etre true car on a deja testé si l'emplacement était dispo.
+        // le boolean "doitEtreTrue" renvoyé doit etre true car on a deja testé si l'emplacement était dispo.
         boolean doitEtreTrue = grilleJeu.ajouterJetonDansColonne(jetonCourant, colonne); 
         
         //partRJ: pour retirer jeton de la liste des jetons du joueur actuel.
