@@ -30,28 +30,20 @@ public class Grille {
 
         Jeton j = m;
 
-        for (int i = 5; i >= 0; i -= 1) {
-
-            if (i == 0 && CellulesJeu[i][colonne].jetonCourant != null) {
-
+        for (int i = 0; i < 6 ; i ++) {
+            
+            if (i == 6 && CellulesJeu[i][colonne].jetonCourant != null) {
                 return false;
-
+                
             } else if (CellulesJeu[i][colonne].jetonCourant == null) {
-
                 CellulesJeu[i][colonne].affecterJeton(j);
-
                 return true;
-
+                
             } else {
-
                 continue;
-
             }
-
         }
-
         return false;
-
     }
 
     public boolean etreRemplie() {
@@ -92,27 +84,38 @@ public class Grille {
 
     }
 
-    public void afficherGrilleSurConsole() {
+    public void afficherGrilleSurConsole(){
 
-        for (int i = 0; i < 6; i++) {
+        for (int i = 5; i >=0 ; i--){
 
             System.out.println("");
 
-            for (int j = 0; j < 7; j++) {
+            for (int j = 0; j < 7; j++){
 
-                if (CellulesJeu[i][j].jetonCourant == null) {
+                //if(CellulesJeu [i][j].presenceDesintegrateur() == true){
+
+                    //System.out.print("D ");
+
+                //}
+                if(CellulesJeu [i][j].presenceTrouNoir() == true){
+
+                    System.out.print("T ");
+
+                }else if(CellulesJeu [i][j].jetonCourant == null){
 
                     System.out.print("x ");
 
-                } else if (CellulesJeu[i][j].jetonCourant.lireCouleur() == "Rouge") {
+                }else if (CellulesJeu [i][j].jetonCourant.lireCouleur() == "rouge" ){
 
                     System.out.print("R ");
 
-                } else {
+                }else{
 
                     System.out.print("J ");
 
                 }
+
+               
 
             }
 
@@ -172,7 +175,7 @@ public class Grille {
         //test colonne gagnante
         for (int c = 0; c < 7; c++) {
 
-            for (int l = 0; l < 4; l++) {
+            for (int l = 0; l < 3; l++) {
 
                 for (int i = 0; i < 4; i++) { //lecture des 4 cases voisines à la case de départ
 
@@ -276,10 +279,28 @@ public class Grille {
         return CellulesJeu[l][c].placerTrouNoir();
     }
 
-    public boolean placerDesintegrateur(int l, int c) {
-        int l1 = l - 1;
-        int c1 = c - 1;
-        return CellulesJeu[l1][c1].placerDesintegrateur();
+    public boolean placerDesintegrateur (int l, int c){
+
+        int l1 = l-1;
+
+        int c1 = c-1;
+
+       
+
+        if (CellulesJeu [l1][c1].placerDesintegrateur() == true){
+
+            CellulesJeu [l1][c1].desintegrateur = true;
+
+            return true;
+
+        }else{
+
+            System.out.println("Désintegrateur déjà présent");
+
+            return false;
+
+        }
+
     }
 
     public boolean supprimerJeton(int l, int c) {

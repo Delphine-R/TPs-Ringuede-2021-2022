@@ -76,14 +76,135 @@ public class Partie {
         }
 
         Random alea = new Random();
+
+        int cpt = 0;
+
+        Joueur JoueurCourant;
+       
+        
+        
+        int l_trouNoir;
+
+        int col_trouNoir;
+
+        int l_desin;
+
+        int col_desin;
+
+ 
+
+        for (int j = 0; j < 5; j++) {
+
+            l_trouNoir = alea.nextInt(5) + 1;
+
+            col_trouNoir = alea.nextInt(6) + 1;
+
+            /* ici le random envoie un nbr aleatoire entre 0 et 6 sauf que le
+
+                reste du programme gère les entrées du joueurs cad les numéros
+
+                de colonnes entre 1 et 7 d'ou le plus 1.*/
+
+            if (grilleJeu.CellulesJeu[l_trouNoir][col_trouNoir].presenceTrouNoir() == true){
+
+                j--;
+
+               
+
+ 
+
+            }else{
+
+                grilleJeu.placerTrouNoir(l_trouNoir,col_trouNoir);
+
+                if (j <= 1 && cpt < 2){
+
+                    cpt ++;
+
+                    grilleJeu.placerDesintegrateur(l_trouNoir,col_trouNoir);
+
+                }
+
+            }
+
+            // while (grilleJeu.CellulesJeu[l_trouNoir][col_trouNoir].presenceTrouNoir() == true) {
+
+                // l_trouNoir = alea.nextInt(5) + 1;
+
+                // col_trouNoir = alea.nextInt(6) + 1;
+
+ 
+
+           
+
+            
+
+            // grilleJeu.placerTrouNoir(l_trouNoir, col_trouNoir);
+
+           
+
+            
+
+            // if (j == 0 || j == 1) {
+
+                // grilleJeu.placerDesintegrateur(l_trouNoir, col_trouNoir);
+
+            // }
+
+ 
+
+        }
+
+       
+        // Déterminer de manière aléatoire le premier joueur à jouer.
+
+        Random r = new Random();
+
+        boolean premier = r.nextBoolean();
+
+        if (premier){
+
+            JoueurCourant = ListeJoueurs[0];
+
+        }else{
+
+            JoueurCourant = ListeJoueurs[1];
+
+        }
+
+
+        // Afficher le joueur courant.
+
+        //lbl_jcourant_nom.setText(JoueurCourant.Nom);
+        
+        Random alea1 = new Random();
+
+ 
+
+        for (int k = 0; k < 3; k++) {
+
+            l_desin = (alea1.nextInt(5)) + 1;
+
+            col_desin = (alea1.nextInt(6)) + 1;
+
+            while (grilleJeu.CellulesJeu[l_desin][col_desin].presenceDesintegrateur() == true || grilleJeu.CellulesJeu[l_desin][col_desin].presenceTrouNoir() == true ) {
+
+                l_desin = (alea1.nextInt(5)) + 1;
+
+                col_desin = (alea1.nextInt(6)) + 1;
+            }
+            grilleJeu.placerDesintegrateur(l_desin, col_desin);
+
+        }
+        /*Random alea = new Random();
         int cpt = 0;
 
         for (int j = 0; j < 5; j++) {
             int l_trouNoir = alea.nextInt(5) + 1;
             int col_trouNoir = alea.nextInt(6) + 1;
-            /* ici le random envoie un nbr aleatoire entre 0 et 6 sauf que le 
-                reste du programme gère les entrées du joueurs cad les numéros 
-                de colonnes entre 1 et 7 d'ou le plus 1.*/
+            // ici le random envoie un nbr aleatoire entre 0 et 6 sauf que le 
+               // reste du programme gère les entrées du joueurs cad les numéros 
+               // de colonnes entre 1 et 7 d'ou le plus 1.
 
             if (cpt < 2) {
                 if (grilleJeu.placerDesintegrateur(l_trouNoir, col_trouNoir) == false) {
@@ -102,7 +223,7 @@ public class Partie {
             if (!grilleJeu.placerDesintegrateur(l_desin, col_desin) || grilleJeu.CellulesJeu[l_desin-1][col_desin-1].presenceTrouNoir()) {
                 i--;
             }
-        }
+        } */
     }
 
     public void debuterPartie() {
@@ -194,130 +315,3 @@ public class Partie {
     }
 
 }
-
-/*
-import java.util.Scanner;//permet les entrées de l'utilisateur
-
-public class Partie {//partie est la classe
-    
-    Joueur [] ListeJoueurs = new Joueur [2];// attribut ListeJoeur de type : tableau rempli de type Joueur
-    Joueur joueurCourant;
-    Grille grilleJeu;
-    int JC = 3; //JC est un entier qui permet de désigner quel joueur est le joueur courant.
-    // JC est égal à 3 début de partie, ensuite il va alterner entre 0 et 1 ce qui correspond au rang dans l'array ListeJoueurs.
-
-    public Partie (Joueur joueur1 , Joueur joueur2){
-        Joueur j1 = joueur1;
-        Joueur j2 = joueur2;
-
-        ListeJoueurs[0] = j1;
-        ListeJoueurs[1] = j2;
-
-}
-    
-    public void attribuerCouleursAuxJoueurs(){
-
-        double nb = Math.random();
-        int nb1;
-        int nb2;
-
-        if (nb >= 0.5){
-            nb1 = 1;
-        }else{
-            nb1 = 0;
-        }
-        
-        nb2 = 1-nb1;
-        ListeJoueurs[nb1].affecterCouleur("Rouge");
-        ListeJoueurs[nb2].affecterCouleur("Jaune");
-    }
-
-    public void initialiserPartie(){
-      grilleJeu = new Grille();
-      
-      for (int i = 0; i < 21; i++){
-          Jeton jeton1 = new Jeton("Rouge");
-          Jeton jeton2 = new Jeton("Jaune");
-          ListeJoueurs[0].ajouterJeton(jeton1);
-          ListeJoueurs[1].ajouterJeton(jeton2);
-      }
-    }
-    
-    public void debuterPartie(){
-        
-        Scanner sc = new Scanner(System.in); // permet de prendre les entrées de l'utilisateur
-        boolean partieFinie = false;
-        String causePartieFinie = "Non déterminée";
-        Joueur joueurCourant = new Joueur("joueur");
-        Joueur adversaireCourant = new Joueur("adversaire");
-        Jeton jetonCourant = new Jeton("Non définie"); // jetonCourant avec Couleur non définit
-        
-        if(JC == 0) {
-            joueurCourant = ListeJoueurs[1];   
-            adversaireCourant = ListeJoueurs[0];
-            jetonCourant.Couleur = joueurCourant.Couleur;
-            JC=1; // permet de changer de joueur au prochain appel de cette méthode
-        }
-        else{
-            joueurCourant = ListeJoueurs[0];
-            adversaireCourant = ListeJoueurs[1];
-            jetonCourant.Couleur = joueurCourant.Couleur;
-            JC = 0;
-        }
-        
-        // 2 tests pour voir si la partie est terminée
-        if (grilleJeu.etreRemplie() == true){
-            partieFinie = true;
-            causePartieFinie = "Grille Remplie";
-        }
-        if (grilleJeu.etreGagnantePourJoueur(adversaireCourant) == true){
-            partieFinie = true;
-            causePartieFinie = "Adversaire gagne";
-        }
-        
-        //cas où la partie n'est pas terminée, le tour est lancé
-        if (partieFinie!= true){
-            
-            grilleJeu.afficherGrilleSurConsole();
-            
-            System.out.println("C'est à votre tour de placer votre jeton\nEntrez un numéro de colone");
-            int colonne = sc.nextInt();
-            
-            boolean placementDispo = grilleJeu.colonneRemplie(colonne);// test si l'emplacement est dispo
-            
-            while (placementDispo == false) { // à refaire jusqu'à ce que le choix de colonne soit valide
-               System.out.println("Erreur : la colonne " + colonne + " est remplie.\nEntrez un autre numéro de colone"); 
-               colonne = sc.nextInt();
-               placementDispo = grilleJeu.colonneRemplie(colonne);
-            }
-            
-        // le boolean "doitEtreTrue" renvoyé doit etre true car on a deja testé si l'emplacement était dispo.
-        boolean doitEtreTrue = grilleJeu.ajouterJetonDansColonne(jetonCourant, colonne); 
-        
-        //partRJ: pour retirer jeton de la liste des jetons du joueur actuel.
-        
-        int rang = 0;
-        for (int i=0; i<joueurCourant.ListeJetons.length; i++){
-            if (joueurCourant.ListeJetons[i]== null){
-                rang = i-1;
-                break;
-            }
-        }
-        joueurCourant.ListeJetons[rang] = null;
-        
-        //fin partRJ.
-        }
-        
-        // cas où la partie doit être terminée, partieFinie = true
-        else{
-            System.out.println("La partie est terminée");
-            if ("Adversaire gagne".equals(causePartieFinie)){
-                System.out.println(adversaireCourant.Nom + " a gagné la partie ");
-            }
-            else{
-                System.out.println("Il y a égalité entre les 2 joueurs");
-            }
-        }
-    }
-}
- */
