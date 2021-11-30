@@ -223,10 +223,26 @@ public class Partie {
 
                     placementImpossible = grilleJeu.colonneRemplie(colonne);
 
+                }                
+                             
+                
+                for ( int i = 0 ; i<7 ; i++){
+                    if (grilleJeu.CellulesJeu[i][colonne-1].jetonCourant == null)
+                        
+                        if (grilleJeu.CellulesJeu[i][colonne-1].presenceTrouNoir()){
+                            grilleJeu.CellulesJeu[i][colonne-1].activerTrouNoir();
+                        }
+                
+                        if (grilleJeu.CellulesJeu[i][colonne-1].presenceDesintegrateur()){
+                            joueurCourant.obtenirDesintegrateur();
+                             grilleJeu.CellulesJeu[i][colonne-1].recupererDesintegrateur();
+                        }
+                        
+                        break;
+                        
                 }
-                 
                 
-                
+ 
                 // le boolean "doitEtreTrue" renvoyé doit etre true car on a deja testé si l'emplacement était dispo.
                 boolean doitEtreTrue = grilleJeu.ajouterJetonDansColonne(joueurCourant, colonne);
 
