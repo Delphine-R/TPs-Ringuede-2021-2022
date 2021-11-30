@@ -79,15 +79,11 @@ public class Cellule {
     public boolean placerDesintegrateur() {
 
         if (desintegrateur == false) {
-
             desintegrateur = true;
-
             return true;
 
         } else {
-
-            System.out.println("désintegrateur déjà présent");
-
+            //System.out.println("désintegrateur déjà présent");
             return false;
 
         }
@@ -97,36 +93,26 @@ public class Cellule {
     public boolean presenceDesintegrateur() {
 
         if (desintegrateur == true) {
-
             return true;
-
         } else {
-
             return false;
-
         }
-
     }
 
     public boolean recupererDesintegrateur() {
 
         if (desintegrateur == true) {
-
             desintegrateur = false;
-
             return true;
 
         } else {
-
             System.out.println("Aucun désintegrateur présent");
-
             return false;
-
         }
-
     }
 
     public boolean placerTrouNoir() {
+        
         if (trouNoir == false) {
             trouNoir = true;
             return true;
@@ -136,6 +122,7 @@ public class Cellule {
     }
 
     public boolean presenceTrouNoir() {
+        
         if (trouNoir == true) {
             return true;
         } else {
@@ -144,6 +131,7 @@ public class Cellule {
     }
 
     public boolean activerTrouNoir() {
+        
         if (presenceTrouNoir() == true) {
             trouNoir = false;
             jetonCourant = null;

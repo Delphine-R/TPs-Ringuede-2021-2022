@@ -22,11 +22,11 @@ public class Grille {
 
     }
 
-    public boolean ajouterJetonDansColonne(Jeton m, int c) {
+    public boolean ajouterJetonDansColonne(Joueur joueurCourant, int c) {
 
         int colonne = c - 1;
 
-        Jeton j = m;
+        Jeton j = new Jeton(joueurCourant.Couleur);
 
         for (int i = 0; i < 6 ; i ++) {
             
@@ -85,19 +85,21 @@ public class Grille {
             System.out.println("");
 
             for (int j = 0; j < 7; j++){
-
-                //if(CellulesJeu [i][j].presenceDesintegrateur() == true){
-
-                    //System.out.print("D ");
-
-                //}
-                if(CellulesJeu [i][j].presenceTrouNoir() == true){
+                
+                Cellule cell = CellulesJeu [i][j];
+                
+                if(cell.presenceTrouNoir()){
                     System.out.print("T ");
+                }
+                
+                else if(cell.presenceDesintegrateur() && !cell.presenceTrouNoir()){
+                    System.out.print("D ");
+                }
 
-                }else if(CellulesJeu [i][j].jetonCourant == null){
+                else if(cell.jetonCourant == null){
                     System.out.print("x ");
 
-                }else if ("Rouge".equals(CellulesJeu [i][j].jetonCourant.lireCouleur()) ){
+                }else if ("Rouge".equals(cell.jetonCourant.lireCouleur()) ){
                     System.out.print("R ");
 
                 }else{
@@ -110,6 +112,8 @@ public class Grille {
         }
 
     }
+
+    
 
     public boolean celluleOccupee(int ligne, int col) {
 

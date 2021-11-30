@@ -77,13 +77,13 @@ public class Partie {
 
         Random alea = new Random();
         int cpt = 0;
-
+        
         for (int j = 0; j < 5; j++) {
             int l_trouNoir = alea.nextInt(5) + 1;
             int col_trouNoir = alea.nextInt(6) + 1;
-            /* ici le random envoie un nbr aleatoire entre 0 et 6 sauf que le
-                reste du programme gère les entrées du joueurs cad les numéros
-                de colonnes entre 1 et 7 d'ou le plus 1.*/
+            //ici le random envoie un nbr aleatoire entre 0 et 6 sauf que le
+               // reste du programme gère les entrées du joueurs cad les numéros
+               // de colonnes entre 1 et 7 d'ou le plus 1.
 
             if (cpt < 2) {
                 if (grilleJeu.placerDesintegrateur(l_trouNoir, col_trouNoir) == false) {
@@ -103,6 +103,7 @@ public class Partie {
                 i--;
             }
         }
+
     }
 
     public void debuterPartie() {
@@ -158,40 +159,21 @@ public class Partie {
 
                 grilleJeu.afficherGrilleSurConsole();
 
-                System.out.println("\nC'est à votre tour de placer votre jeton\nEntrez un numéro de colone");
+                System.out.println("\nC'est à votre tour de placer votre jeton\nEntrez un numéro de colonne");
                 int colonne = sc.nextInt();
 
                 boolean placementImpossible = grilleJeu.colonneRemplie(colonne);// test si l'emplacement est dispo
                 while (placementImpossible == true) { // à refaire jusqu'à ce que le choix de colonne soit valide
 
-                    System.out.println("Erreur : la colonne " + colonne + " est remplie.\nEntrez un autre numéro de colone");
+                    System.out.println("Erreur : la colonne " + colonne + " est remplie.\nEntrez un autre numéro de colonne");
                     colonne = sc.nextInt();
 
                     placementImpossible = grilleJeu.colonneRemplie(colonne);
 
                 }
-                
-                // on cherche la ligne ou le jeton doit etre place:
-                int ligne = 10;
-                
-                for ( int i = 1 ; i<7 ; i++){
-                    if (grilleJeu.CellulesJeu[i][colonne]==null)
-                        ligne = i;
-                        break;
-                }
-                // fin recherche ligne donc la cellule actuelle est de coord : ligne x colonne
-               
-                if (grilleJeu.CellulesJeu[ligne][colonne].presenceTrouNoir()){
-                    grilleJeu.CellulesJeu[ligne][colonne].activerTrouNoir();
-                }
-                
-                if (grilleJeu.CellulesJeu[ligne][colonne].presenceDesintegrateur()){
-                    joueurCourant.obtenirDesintegrateur();
-                    //autres à completer
-                }
                  
                 // le boolean "doitEtreTrue" renvoyé doit etre true car on a deja testé si l'emplacement était dispo.
-                boolean doitEtreTrue = grilleJeu.ajouterJetonDansColonne(jetonCourant, colonne);
+                boolean doitEtreTrue = grilleJeu.ajouterJetonDansColonne(joueurCourant, colonne);
 
             }
 
