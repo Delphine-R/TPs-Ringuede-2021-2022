@@ -76,135 +76,14 @@ public class Partie {
         }
 
         Random alea = new Random();
-
-        int cpt = 0;
-
-        Joueur JoueurCourant;
-       
-        
-        
-        int l_trouNoir;
-
-        int col_trouNoir;
-
-        int l_desin;
-
-        int col_desin;
-
- 
-
-        for (int j = 0; j < 5; j++) {
-
-            l_trouNoir = alea.nextInt(5) + 1;
-
-            col_trouNoir = alea.nextInt(6) + 1;
-
-            /* ici le random envoie un nbr aleatoire entre 0 et 6 sauf que le
-
-                reste du programme gère les entrées du joueurs cad les numéros
-
-                de colonnes entre 1 et 7 d'ou le plus 1.*/
-
-            if (grilleJeu.CellulesJeu[l_trouNoir][col_trouNoir].presenceTrouNoir() == true){
-
-                j--;
-
-               
-
- 
-
-            }else{
-
-                grilleJeu.placerTrouNoir(l_trouNoir,col_trouNoir);
-
-                if (j <= 1 && cpt < 2){
-
-                    cpt ++;
-
-                    grilleJeu.placerDesintegrateur(l_trouNoir,col_trouNoir);
-
-                }
-
-            }
-
-            // while (grilleJeu.CellulesJeu[l_trouNoir][col_trouNoir].presenceTrouNoir() == true) {
-
-                // l_trouNoir = alea.nextInt(5) + 1;
-
-                // col_trouNoir = alea.nextInt(6) + 1;
-
- 
-
-           
-
-            
-
-            // grilleJeu.placerTrouNoir(l_trouNoir, col_trouNoir);
-
-           
-
-            
-
-            // if (j == 0 || j == 1) {
-
-                // grilleJeu.placerDesintegrateur(l_trouNoir, col_trouNoir);
-
-            // }
-
- 
-
-        }
-
-       
-        // Déterminer de manière aléatoire le premier joueur à jouer.
-
-        Random r = new Random();
-
-        boolean premier = r.nextBoolean();
-
-        if (premier){
-
-            JoueurCourant = ListeJoueurs[0];
-
-        }else{
-
-            JoueurCourant = ListeJoueurs[1];
-
-        }
-
-
-        // Afficher le joueur courant.
-
-        //lbl_jcourant_nom.setText(JoueurCourant.Nom);
-        
-        Random alea1 = new Random();
-
- 
-
-        for (int k = 0; k < 3; k++) {
-
-            l_desin = (alea1.nextInt(5)) + 1;
-
-            col_desin = (alea1.nextInt(6)) + 1;
-
-            while (grilleJeu.CellulesJeu[l_desin][col_desin].presenceDesintegrateur() == true || grilleJeu.CellulesJeu[l_desin][col_desin].presenceTrouNoir() == true ) {
-
-                l_desin = (alea1.nextInt(5)) + 1;
-
-                col_desin = (alea1.nextInt(6)) + 1;
-            }
-            grilleJeu.placerDesintegrateur(l_desin, col_desin);
-
-        }
-        /*Random alea = new Random();
         int cpt = 0;
 
         for (int j = 0; j < 5; j++) {
             int l_trouNoir = alea.nextInt(5) + 1;
             int col_trouNoir = alea.nextInt(6) + 1;
-            // ici le random envoie un nbr aleatoire entre 0 et 6 sauf que le 
-               // reste du programme gère les entrées du joueurs cad les numéros 
-               // de colonnes entre 1 et 7 d'ou le plus 1.
+            /* ici le random envoie un nbr aleatoire entre 0 et 6 sauf que le
+                reste du programme gère les entrées du joueurs cad les numéros
+                de colonnes entre 1 et 7 d'ou le plus 1.*/
 
             if (cpt < 2) {
                 if (grilleJeu.placerDesintegrateur(l_trouNoir, col_trouNoir) == false) {
@@ -216,14 +95,14 @@ public class Partie {
                 j--;
             }
         }
-        
+       
         for (int i = 0; i < 3; i++) {
             int l_desin = alea.nextInt(5)+1;
             int col_desin = alea.nextInt(6)+1;
             if (!grilleJeu.placerDesintegrateur(l_desin, col_desin) || grilleJeu.CellulesJeu[l_desin-1][col_desin-1].presenceTrouNoir()) {
                 i--;
             }
-        } */
+        }
     }
 
     public void debuterPartie() {
@@ -276,12 +155,12 @@ public class Partie {
 
             //cas où la partie n'est pas terminée, le tour est lancé
             if (!partieFinie) {
-                
+               
                 grilleJeu.afficherGrilleSurConsole();
-                
+               
                 System.out.println("\nC'est à votre tour de placer votre jeton\nEntrez un numéro de colone");
                 int colonne = sc.nextInt();
-                
+               
                 boolean placementImpossible = grilleJeu.colonneRemplie(colonne);// test si l'emplacement est dispo
                 while (placementImpossible == true) { // à refaire jusqu'à ce que le choix de colonne soit valide
 

@@ -17,9 +17,7 @@ public class Grille {
             for (int j = 0; j < 7; j++) {
 
                 CellulesJeu[i][j] = new Cellule();
-
             }
-
         }
 
     }
@@ -32,7 +30,7 @@ public class Grille {
 
         for (int i = 0; i < 6 ; i ++) {
             
-            if (i == 6 && CellulesJeu[i][colonne].jetonCourant != null) {
+            if (i == 5 && CellulesJeu[i][colonne].jetonCourant != null) {
                 return false;
                 
             } else if (CellulesJeu[i][colonne].jetonCourant == null) {
@@ -73,15 +71,11 @@ public class Grille {
     public void viderGrille() {
 
         for (int i = 0; i < 6; i++) {
-
             for (int j = 0; j < 7; j++) {
-
                 CellulesJeu[i][j].jetonCourant = null;
 
             }
-
         }
-
     }
 
     public void afficherGrilleSurConsole(){
@@ -98,24 +92,18 @@ public class Grille {
 
                 //}
                 if(CellulesJeu [i][j].presenceTrouNoir() == true){
-
                     System.out.print("T ");
 
                 }else if(CellulesJeu [i][j].jetonCourant == null){
-
                     System.out.print("x ");
 
-                }else if (CellulesJeu [i][j].jetonCourant.lireCouleur() == "rouge" ){
-
+                }else if ("Rouge".equals(CellulesJeu [i][j].jetonCourant.lireCouleur()) ){
                     System.out.print("R ");
 
                 }else{
-
                     System.out.print("J ");
 
-                }
-
-               
+                }   
 
             }
 
