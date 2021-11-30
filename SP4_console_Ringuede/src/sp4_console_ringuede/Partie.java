@@ -95,11 +95,11 @@ public class Partie {
                 j--;
             }
         }
-       
+
         for (int i = 0; i < 3; i++) {
-            int l_desin = alea.nextInt(5)+1;
-            int col_desin = alea.nextInt(6)+1;
-            if (!grilleJeu.placerDesintegrateur(l_desin, col_desin) || grilleJeu.CellulesJeu[l_desin-1][col_desin-1].presenceTrouNoir()) {
+            int l_desin = alea.nextInt(5) + 1;
+            int col_desin = alea.nextInt(6) + 1;
+            if (!grilleJeu.placerDesintegrateur(l_desin, col_desin) || grilleJeu.CellulesJeu[l_desin - 1][col_desin - 1].presenceTrouNoir()) {
                 i--;
             }
         }
@@ -155,12 +155,12 @@ public class Partie {
 
             //cas où la partie n'est pas terminée, le tour est lancé
             if (!partieFinie) {
-               
+
                 grilleJeu.afficherGrilleSurConsole();
-               
+
                 System.out.println("\nC'est à votre tour de placer votre jeton\nEntrez un numéro de colone");
                 int colonne = sc.nextInt();
-               
+
                 boolean placementImpossible = grilleJeu.colonneRemplie(colonne);// test si l'emplacement est dispo
                 while (placementImpossible == true) { // à refaire jusqu'à ce que le choix de colonne soit valide
 
@@ -170,7 +170,26 @@ public class Partie {
                     placementImpossible = grilleJeu.colonneRemplie(colonne);
 
                 }
-
+                
+                // on cherche la ligne ou le jeton doit etre place:
+                int ligne = 10;
+                
+                for ( int i = 1 ; i<7 ; i++){
+                    if (grilleJeu.CellulesJeu[i][colonne]==null)
+                        ligne = i;
+                        break;
+                }
+                // fin recherche ligne donc la cellule actuelle est de coord : ligne x colonne
+               
+                if (grilleJeu.CellulesJeu[ligne][colonne].presenceTrouNoir()){
+                    grilleJeu.CellulesJeu[ligne][colonne].activerTrouNoir();
+                }
+                
+                if (grilleJeu.CellulesJeu[ligne][colonne].presenceDesintegrateur()){
+                    joueurCourant.obtenirDesintegrateur();
+                    //autres à completer
+                }
+                 
                 // le boolean "doitEtreTrue" renvoyé doit etre true car on a deja testé si l'emplacement était dispo.
                 boolean doitEtreTrue = grilleJeu.ajouterJetonDansColonne(jetonCourant, colonne);
 
