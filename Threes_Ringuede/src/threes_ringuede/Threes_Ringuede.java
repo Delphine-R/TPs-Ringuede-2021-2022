@@ -8,7 +8,7 @@ public class Threes_Ringuede {
 
     
     public static void main(String[] args) {
-        // TODO code application logic here
+        
     }
     
 }
