@@ -1,77 +1,49 @@
 package threes_ringuede;
 
+
 public class Grid {
 
-    Element[][] gridEl;
+    Integer[][] grid;
 
     public Grid() {
         // la grille est composé de 4x4 éléments qui ont une valeur null si vide.
 
-        gridEl = new Element[3][3];
+        grid = new Integer[3][3];
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
-                gridEl[i][j] = new Element();
+                grid[i][j] = null;
             }
         }
     }
 
-    public void moveElBrouillon() { // IDEE POUR LA PROCHAINE FOIS LECTURE DE DROITE A GAUCHE POUR LE DECALLAGE AVEC UN WHILE CASE = NULL
-        // deplace tous les elements dans la direction en parametre
-
-        // cas décallage vers la droite
-        // lecture de la grille en partant de la direction opposée 
-        // ex: decallage de gauche à droite => lecture de droite à gauche
-        for (int i = 3; i >= 0; i--) {
+    public void Move(){
+        
+        //part 1 : déplacement vers la droite 
+        
+        //1.a) lecture de la ligne jusqu'à arret
+        // conditions d'arret : case null ou fusion ou fin de ligne
+        for (int l = 0; l<4 ; l ++){
             
-            int cnt = 4; // compte les cases vides par ligne 
+            int col = 3;
+            boolean fusion = false;
             
-            while ( cnt != 0){
-                
-                cnt = 0;
-            
-                //test si il reste des cases vides pour ensuite sortir du while 
-// PROBLEME il peut rester des cases vides meme si le decallage est termine
-                for (int j = 0; j < 4 ; j--) {               
-                
-                    if (gridEl[i][j] == null){
-                        cnt ++;
-                    }
+            while (col > 0 && grid[l][col] != null && !fusion){
+                if (grid[l][col] == grid[l][col-1]){ //fusion
+                    grid[l][col] += grid[l][col-1];
+                    grid[l][col-1] = null;
+                    fusion = true;
                 }
-                
-                for (int col = 3; col >= 0; col--) {               
-                
-                    if (gridEl[i][col] == null){
-                        cnt ++; 
-
-                       gridEl[i][col] = gridEl[i][col-1];
-                    }       
+                col --;
             }
-            
-            for (int j = 0; j <4 ; j--) {               
                 
-                if (gridEl[i][j] == null){
-                    cnt ++; // nbr de décallage à réaliser, juste pour remplir les cases vides
-                    
-            for (int k = 0 ; k < cnt; k ++){
-                
-                for (int col = 3; col >= 0; col--) {               
-                
-                    if (gridEl[i][j] == null){
-                        cnt ++; 
-
-                       gridEl[i][j] = gridEl[i][j-1];
-                    }               
-                }
-            }        
-            
-        }
-               
-    }
             }
+            //1.b) tasser la grille (=décallage de une case si null à cote)
+            packDown("right"); 
+            
+            //fin part 1 à refaire pour toutes les directions.
         }
-    }
-    
-    public void moveEl(){
+        
+    public void moveElVersion2048(){
         
         //part 1 : deplacement vers la droite.
         
@@ -79,27 +51,27 @@ public class Grid {
             
             //1.a) décallage vers la droite.
             for (int col = 3 ; col >= 0 ; col --){
-                while (gridEl[l][col]== null){
+                while (grid[l][col]== null){
                     for (int i = col ; i >=0 ; i --){ // tous les élements à  
-                        gridEl[l][col] = gridEl[l][col-1];
-                        gridEl[l][col-1] = null;
+                        grid[l][col] = grid[l][col-1];
+                        grid[l][col-1] = null;
                     }
                 }           
             }
             
             //1.b) addition des elements qui sont égaux.
             for (int col = 3 ; col >= 0 ; col --){
-                if (gridEl[l][col] == gridEl[l][col-1]){
-                    gridEl[l][col].value = gridEl[l][col].value + gridEl[l][col-1].value;
-                    gridEl[l][col-1] = null;
+                if (grid[l][col] == grid[l][col-1]){
+                    grid[l][col] = grid[l][col] + grid[l][col-1];
+                    grid[l][col-1] = null;
                 }
             }
             
             //1.c) décallage final apres les additions.
             for (int col = 3 ; col >= 0 ; col --){
-               while (gridEl[l][col]== null){
-                    gridEl[l][col] = gridEl[l][col-1];
-                    gridEl[l][col-1] = null;
+               while (grid[l][col]== null){
+                    grid[l][col] = grid[l][col-1];
+                    grid[l][col-1] = null;
                 }  
             }
         }
@@ -112,11 +84,51 @@ public class Grid {
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
 
-                if (gridEl[i][j] == null) { // cherche une seule case null
+                if (grid[i][j] == null) { // cherche une seule case null
                     return false;
                 }
             }
         }
         return true;
     }
+
+    public void packDown(String direction){
+        if ("right".equals(direction)){
+            for (int l = 0; l <4 ; l++ ){
+                for (int c = 3 ; c > 0 ; c --){
+                    if (grid[l][c] == null){
+                        grid[l][c] = grid[l][c-1];
+                    }                       
+                } 
+            }
+        }
+        if ("left".equals(direction)){
+            for (int l = 0; l <4 ; l++ ){
+                for (int c = 0 ; c < 3 ; c ++){
+                    if (grid[l][c] == null){
+                        grid[l][c] = grid[l][c+1];
+                    }                       
+                } 
+            }
+        }
+        if ("up".equals(direction)){
+            for (int c = 0; c <4 ; c++ ){
+                for (int l = 3 ; l > 0 ; l --){
+                    if (grid[l][c] == null){
+                        grid[l][c] = grid[l-1][c];
+                    }                       
+                } 
+            }
+        }
+        if ("down".equals(direction)){
+            for (int c = 0; c <4 ; c++ ){
+                for (int l = 0 ; l < 3 ; l ++){
+                    if (grid[l][c] == null){
+                        grid[l][c] = grid[l+1][c];
+                    }                       
+                } 
+            }
+        }
+    }
 }
+
