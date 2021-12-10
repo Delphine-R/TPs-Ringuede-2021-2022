@@ -14,8 +14,64 @@ public class Grid {
             }
         }
     }
+    
+    public void emptyGrid(){
+       for (int l = 0; l < 4; l++) {
+            for (int c = 0; c < 4; c++) {
+                grid[l][c] = null;
+            }
+        } 
+    }
+    
+    public void printGrid(){
+        for (int l = 3 ; l>=0 ; l--){
+            for (int c = 0 ; c < 4 ; c++){
+                if (grid[l][c] == null)System.out.print("E");
+                else System.out.print(grid[l][c]);
+            }
+        }
+    }
+    
+    public void packDown(String direction) {
+        if ("right".equals(direction)) {
+            for (int l = 0; l < 4; l++) {
+                for (int c = 3; c > 0; c--) {
+                    if (grid[l][c] == null) {
+                        grid[l][c] = grid[l][c - 1];
+                    }
+                }
+            }
+        }
+        if ("left".equals(direction)) {
+            for (int l = 0; l < 4; l++) {
+                for (int c = 0; c < 3; c++) {
+                    if (grid[l][c] == null) {
+                        grid[l][c] = grid[l][c + 1];
+                    }
+                }
+            }
+        }
+        if ("up".equals(direction)) {
+            for (int c = 0; c < 4; c++) {
+                for (int l = 3; l > 0; l--) {
+                    if (grid[l][c] == null) {
+                        grid[l][c] = grid[l - 1][c];
+                    }
+                }
+            }
+        }
+        if ("down".equals(direction)) {
+            for (int c = 0; c < 4; c++) {
+                for (int l = 0; l < 3; l++) {
+                    if (grid[l][c] == null) {
+                        grid[l][c] = grid[l + 1][c];
+                    }
+                }
+            }
+        }
+    }    
 
-    public void Move(String direction) {
+    public void move(String direction) {
 
         //part 1 : déplacement vers la droite
         if ("right".equals(direction)) {
@@ -140,44 +196,5 @@ public class Grid {
             }
         }
         return true;
-    }
-
-    public void packDown(String direction) {
-        if ("right".equals(direction)) {
-            for (int l = 0; l < 4; l++) {
-                for (int c = 3; c > 0; c--) {
-                    if (grid[l][c] == null) {
-                        grid[l][c] = grid[l][c - 1];
-                    }
-                }
-            }
-        }
-        if ("left".equals(direction)) {
-            for (int l = 0; l < 4; l++) {
-                for (int c = 0; c < 3; c++) {
-                    if (grid[l][c] == null) {
-                        grid[l][c] = grid[l][c + 1];
-                    }
-                }
-            }
-        }
-        if ("up".equals(direction)) {
-            for (int c = 0; c < 4; c++) {
-                for (int l = 3; l > 0; l--) {
-                    if (grid[l][c] == null) {
-                        grid[l][c] = grid[l - 1][c];
-                    }
-                }
-            }
-        }
-        if ("down".equals(direction)) {
-            for (int c = 0; c < 4; c++) {
-                for (int l = 0; l < 3; l++) {
-                    if (grid[l][c] == null) {
-                        grid[l][c] = grid[l + 1][c];
-                    }
-                }
-            }
-        }
     }
 }
