@@ -32,6 +32,11 @@ public class Grid {
         }
     }
     
+    public void newInt(){
+        //côte aleatoire
+        
+    }
+    
     public void packDown(String direction) {
         if ("right".equals(direction)) {
             for (int l = 0; l < 4; l++) {
@@ -150,7 +155,7 @@ public class Grid {
         }
     }
 
-    public void moveElVersion2048() {
+    public void moveVersion2048() {
 
         //part 1 : deplacement vers la droite.
         for (int l = 0; l < 4; l++) {
