@@ -15,7 +15,7 @@ public class Grid {
         }
     }
 
-    public moveEl(Direction dir) { // IDEE POUR LA PROCHAINE FOIS / LECTURE DE DROITE A GAUCHE POUR LE DECALLAGE AVEC UN WHILE CASE = NULL
+    public void moveElBrouillon() { // IDEE POUR LA PROCHAINE FOIS LECTURE DE DROITE A GAUCHE POUR LE DECALLAGE AVEC UN WHILE CASE = NULL
         // deplace tous les elements dans la direction en parametre
 
         // cas décallage vers la droite
@@ -66,6 +66,44 @@ public class Grid {
             
         }
                
+    }
+            }
+        }
+    }
+    
+    public void moveEl(){
+        
+        //part 1 : deplacement vers la droite.
+        
+        for (int l = 0 ; l < 4 ; l ++){
+            
+            //1.a) décallage vers la droite.
+            for (int col = 3 ; col >= 0 ; col --){
+                while (gridEl[l][col]== null){
+                    for (int i = col ; i >=0 ; i --){ // tous les élements à  
+                        gridEl[l][col] = gridEl[l][col-1];
+                        gridEl[l][col-1] = null;
+                    }
+                }           
+            }
+            
+            //1.b) addition des elements qui sont égaux.
+            for (int col = 3 ; col >= 0 ; col --){
+                if (gridEl[l][col] == gridEl[l][col-1]){
+                    gridEl[l][col].value = gridEl[l][col].value + gridEl[l][col-1].value;
+                    gridEl[l][col-1] = null;
+                }
+            }
+            
+            //1.c) décallage final apres les additions.
+            for (int col = 3 ; col >= 0 ; col --){
+               while (gridEl[l][col]== null){
+                    gridEl[l][col] = gridEl[l][col-1];
+                    gridEl[l][col-1] = null;
+                }  
+            }
+        }
+        //fin part 1.
     }
 
     public boolean gridFull() {
