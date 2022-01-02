@@ -69,83 +69,19 @@ public class Grid {
         System.out.println("\n -   -   -   -");
         System.out.println("Score : " + player.score);
     }
-
-    public void newInt() {
-        //côte aleatoire
-        Random r = new Random();
-        int cote; // 1:haut 2:bas 3:dr 4:gauche
-        int l = -1;
-        int c = -1; // ne pas oublier de verifier que l et c changent avec le "do while"
-
-        do {
-            cote = r.nextInt(4);
-            System.out.println("cote aleatoire: " + cote);
-            switch (cote) {
-                case 0 -> {
-                    l = 0;
-                    c = r.nextInt(4);
-                    System.out.println("A" + cote);
-                }
-                case 1 -> {
-                    l = 3;
-                    c = r.nextInt(4);
-                    System.out.println("A" + cote);
-                }
-                case 2 -> {
-                    c = 0;
-                    l = r.nextInt(4);
-                    System.out.println("A" + cote);
-                }
-                case 3 -> {
-                    c = 3;
-                    l = r.nextInt(4);
-                    System.out.println("A" + cote);
-                }
-                default -> {
-                    System.out.println("salut");
-                }
-            }
-        } while (grid[l][c] != null);
-
-        grid[l][c] = 1 + r.nextInt(3); // ajoute les val 1,2 ou 3
-    }
-
-    public void newIntv2(){
-        Random r = new Random();
-        int cote;
+   
+    public void newInt(){
         int l;
         int c;
+        Random r = new Random();
         
         do {
-           cote = r.nextInt(4);
-           System.out.println("cote aleatoire: " + cote);
-           if (cote == 0){
-               l = 0;
-               c = r.nextInt(4);
-           }
-           else if (cote == 1){
-               l = 3;
-               c = r.nextInt(4);
-           }
-           else if (cote == 2){
-               c = 0;
-               l = r.nextInt(4);
-           }
-           else if (cote == 3){
-               c = 3;
-               l = r.nextInt(4);
-           }
-           else{
-               l = 2;
-               c = 3;
-           }
-        }
-        while (grid[l][c]!= null);
-        int nb = r.nextInt(3);
-        nb++;
-        System.out.println("nb qui va apparaitre "+ nb);
-        grid[l][c] = 1 + nb;
-       
+            l = r.nextInt(4);
+            c = r.nextInt(4);
+        } while (l != 0 && l != 3 && c != 0 && c!=3); 
+        //condition magique et incroyable pour que les coord soit sur les cotes 
+
+        grid[l][c]= 1 + r.nextInt(3);
     }
             
     public void packDown(String direction) {
