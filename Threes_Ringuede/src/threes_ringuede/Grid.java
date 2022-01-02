@@ -1,5 +1,7 @@
 package threes_ringuede;
 
+import java.util.Random;
+
 public class Grid {
 
     Integer[][] grid;
@@ -7,36 +9,94 @@ public class Grid {
     public Grid() {
         // la grille est composé de 4x4 éléments qui ont une valeur null si vide.
 
-        grid = new Integer[3][3];
+        grid = new Integer[4][4]; 
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 grid[i][j] = null;
             }
         }
     }
-    
-    public void emptyGrid(){
-       for (int l = 0; l < 4; l++) {
+
+    public void initGrid() {
+        // vide la grille 
+        for (int l = 0; l < 4; l++) {
             for (int c = 0; c < 4; c++) {
                 grid[l][c] = null;
             }
-        } 
+        }
+
+        Random r = new Random();
+
+        // place un 1 et un 2 de manière aléatoire 
+        int l; //ligne
+        int c; // colonne
+
+        c = r.nextInt(4); // génération d'un nombre >= 0 et < 4
+        l = r.nextInt(4);
+        grid[l][c] = 1;
+
+        do {
+            c = r.nextInt(4);
+            l = r.nextInt(4);
+        } while (grid[l][c] != null); // à refaire si jamais on les 2 val tombent sur la même case.
+        grid[l][c] = 2;
+
+        // peut ajouter d'autres valeurs (max 3 nouvelles val) comprises entre 1 et 3 
+        int nbrVal = r.nextInt(4);
+        int val;
+        for (int k = 0; k < nbrVal; k++) {
+            do {
+                c = r.nextInt(4);
+                l = r.nextInt(4);
+            } while (grid[l][c] != null);
+            grid[l][c] = 1 + r.nextInt(3);
+        }
+
     }
-    
-    public void printGrid(){
-        for (int l = 3 ; l>=0 ; l--){
-            for (int c = 0 ; c < 4 ; c++){
-                if (grid[l][c] == null)System.out.print("E");
-                else System.out.print(grid[l][c]);
+
+    public void printGrid(Player player) {
+        for (int l = 3; l >= 0; l--) {
+            System.out.println("");
+            for (int c = 0; c < 4; c++) {
+                if (grid[l][c] == null) {
+                    System.out.print("E ");
+                } else {
+                    System.out.print(grid[l][c] + " ");
+                }
             }
         }
+        System.out.println("\n -   -   -   -");
+        System.out.println("Score : " + player.score);
     }
-    
-    public void newInt(){
+
+    public void newInt() {
         //côte aleatoire
-        
+        Random r = new Random();
+        int cote; // 1:haut 2:bas 3:dr 4:gauche
+        int l = -1;
+        int c = -1;
+
+        do {
+            cote = r.nextInt(4);
+            switch (cote) {
+                case 1:
+                    l = 0;
+                    c = r.nextInt(4);
+                case 2:
+                    l = 3;
+                    c = r.nextInt(4);
+                case 3:
+                    c = 0;
+                    l = r.nextInt(4);
+                case 4:
+                    c = 3;
+                    l = r.nextInt(4);
+            }
+        } while (grid[l][c] != null);
+
+        grid[l][c] = 1 + r.nextInt(3);
     }
-    
+
     public void packDown(String direction) {
         if ("right".equals(direction)) {
             for (int l = 0; l < 4; l++) {
@@ -74,7 +134,7 @@ public class Grid {
                 }
             }
         }
-    }    
+    }
 
     public void move(String direction) {
 
