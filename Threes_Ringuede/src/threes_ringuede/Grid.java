@@ -55,6 +55,7 @@ public class Grid {
     }
 
     public void printGrid(Player player) {
+        System.out.println("\n - Tour numéro " + player.score + " -" );
         for (int l = 3; l >= 0; l--) {
             System.out.println("");
             for (int c = 0; c < 4; c++) {
@@ -73,8 +74,8 @@ public class Grid {
         //côte aleatoire
         Random r = new Random();
         int cote; // 1:haut 2:bas 3:dr 4:gauche
-        int l = -1;
-        int c = -1;
+        int l = 3;
+        int c = 3; // ne pas oublier de verifier que l et c changent avec le "do while"
 
         do {
             cote = r.nextInt(4);
@@ -103,6 +104,7 @@ public class Grid {
                 for (int c = 3; c > 0; c--) {
                     if (grid[l][c] == null) {
                         grid[l][c] = grid[l][c - 1];
+                        grid[l][c - 1] = null; //new line
                     }
                 }
             }
@@ -112,6 +114,7 @@ public class Grid {
                 for (int c = 0; c < 3; c++) {
                     if (grid[l][c] == null) {
                         grid[l][c] = grid[l][c + 1];
+                        grid[l][c + 1] = null;
                     }
                 }
             }
@@ -121,6 +124,7 @@ public class Grid {
                 for (int l = 3; l > 0; l--) {
                     if (grid[l][c] == null) {
                         grid[l][c] = grid[l - 1][c];
+                        grid[l - 1][c] = null;
                     }
                 }
             }
@@ -130,6 +134,7 @@ public class Grid {
                 for (int l = 0; l < 3; l++) {
                     if (grid[l][c] == null) {
                         grid[l][c] = grid[l + 1][c];
+                        grid[l + 1][c] = null;
                     }
                 }
             }
