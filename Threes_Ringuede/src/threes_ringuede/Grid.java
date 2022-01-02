@@ -78,8 +78,8 @@ public class Grid {
         do {
             l = r.nextInt(4);
             c = r.nextInt(4);
-        } while (l != 0 && l != 3 && c != 0 && c!=3); 
-        //condition magique et incroyable pour que les coord soit sur les cotes 
+        } while ((grid[l][c] != null) && (l != 0 && l != 3 && c != 0 && c!=3) ); 
+        //condition magique pour que les coord soit sur les cotes 
 
         grid[l][c]= 1 + r.nextInt(3);
     }
@@ -140,8 +140,15 @@ public class Grid {
                 boolean fusion = false;
 
                 while (col > 0 && grid[l][col] != null && !fusion) {
-                    if (grid[l][col] == grid[l][col - 1]) { //fusion
+                    //fusion égalité
+                    if (grid[l][col] == grid[l][col - 1]) { 
                         grid[l][col] += grid[l][col - 1];
+                        grid[l][col - 1] = null;
+                        fusion = true;
+                    }
+                    //fusion 1 + 2
+                    else if ((grid[l][col] != null && grid[l][col - 1] != null) && ((grid[l][col] == 1 && grid[l][col - 1] == 2) || (grid[l][col] == 2 && grid[l][col - 1] == 1))) { 
+                        grid[l][col] = 3;
                         grid[l][col - 1] = null;
                         fusion = true;
                     }
@@ -162,7 +169,7 @@ public class Grid {
                 while (c < 3 && grid[l][c] != null && !f) {
                     if (grid[l][c] == grid[l][c + 1]) {
                         grid[l][c] += grid[l][c + 1];
-                        grid[l][c - 1] = null;
+                        grid[l][c + 1] = null;
                         f = true;
                     }
                     c++;
